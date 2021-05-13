@@ -14,16 +14,16 @@ class Obstacles {
     vel = -3;
   }
   
+  void update(){
+    x += vel;
+  }
+  
   void render() {
     pushMatrix();
     fill(210);
     rect(x, 0, w, top);
     rect(x, y, w, bottom);
     popMatrix();
-  }
-  
-  void update(){
-    x += vel;
   }
   
 }
