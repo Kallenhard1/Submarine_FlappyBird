@@ -1,17 +1,15 @@
 Submarine sub;
 Rules rules;
-Obstacles [] obst = new Obstacles[512];
+Obstacles [] obst = new Obstacles[3];
 boolean finished;
 
 void setup(){
   size(512, 512);
   sub = new Submarine();
-  //A sintaxe está errada, mas não sei sé é um erro na linha abaixo, ou na variavel global.
-  //Não consigo fazer mais de um elemento dessa classe. Por que?
   for(int i = 0; i < obst.length; i++) {
-    obst[i] = new Obstacles();
+    obst[i] = new Obstacles(i);
   }
-  
+
   rules = new Rules();
 }
 void draw() {
@@ -21,10 +19,11 @@ void draw() {
   sub.movement();
   sub.render();
   
+ 
   for(int i = 0; i < obst.length; i++) {
+    obst[i].update();
     obst[i].render();
-  } 
-  
+  }
   
 }
 
