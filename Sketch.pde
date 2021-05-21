@@ -16,14 +16,12 @@ void setup(){
 void draw() {
   background(0);
   
-  sub.Up();
   sub.move();
   sub.render();
-  sub.collision(obst);
  
-  for(int i = 0; i < obst.length; i++) {
+  for(int i = obst.length - 1; i >= 0; i--) {
     obst[i].update();
-    obst[i].checkPosition(sub);
+    //obst[i].checkPosition(sub);
     obst[i].render();
   }
   
