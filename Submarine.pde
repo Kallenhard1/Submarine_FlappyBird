@@ -14,7 +14,7 @@ class Submarine {
   
     vel = 0;
     
-    g = 0.1;
+    g = 0.5;
     force = -6;
   }
   
@@ -25,12 +25,13 @@ class Submarine {
   }
   // Embora o código esteja funcionando, seu efeito ainda está muito "seco", como se ganhasse velocidade instantanea ao pressionar o mouse.
   void move() {
+    vel += g;
+    sy += vel;
+    
     if (mousePressed){
       vel = force + (force * g);
       vel += -g;
     }
-    vel += g;
-    sy += vel;
    
   }
   
@@ -40,33 +41,4 @@ class Submarine {
     ellipse(sx, sy, r*5, r*2);
   }
   
-  void collision(Obstacles [] b) {
-    if ( sy > height ){
-      vel = -force;
-      sy += -vel;
-      //The reset is in hir just for now, because later i will put an end() function and show the Score for the Player.
-      //reset();
-    }
-    for(int i = 0; i < 100; i++) {
-      if ( (sx > b[i].bx + b[i].w && sx < b[i].bx + b[i].w) && (sy < b[i].top || sy > b[i].by)  ) {
-        println("Collision...");
-        finished = false;
-        reset();
-    }
-
-  }
-  
-  }
-  
-  void reset() {
-    finished = false;
-    sx = width/2;
-    sy = height/2;
-  
-    vel = 0;
-    
-    g = 0.9;
-    force = -6;
-  }
-
 }
