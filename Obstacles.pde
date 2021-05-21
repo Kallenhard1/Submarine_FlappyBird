@@ -1,29 +1,49 @@
 class Obstacles {
-  float x, y;
+  float bx, by;
   float w;
   float top;
   float bottom;
   float vel;
+  boolean finished;
   
   Obstacles(int i) {
+    finished = false;
     top = random(height/2);
     bottom = random(height/2);
     w = -60;
-    x = width * i; //I don't know why it worked...( ? )
-    y = height - bottom;
+    bx = width * i;
+    by = height - bottom;
     vel = -3;
   }
   
   void update(){
-    x += vel;
+    bx += vel;
   }
   
   void render() {
-    pushMatrix();
     fill(210);
-    rect(x, 0, w, top);
-    rect(x, y, w, bottom);
-    popMatrix();
+    rect(bx, 0, w, top);
+    rect(bx, by, w, bottom);
+  }
+  
+  void checkPosition(Submarine s) {
+    if ( s.finished == true ) {
+      finished = true;
+      reset();
+    }
+  } 
+  
+  //Its not working yet...
+  void reset() {
+    finished = false;
+    top = random(height/2);
+    bottom = random(height/2);
+    w = -60;
+    for (int i = 0; i < 100; i++) {
+      bx = width + (width * i);
+    }
+    by = height - bottom;
+    vel = -3;
   }
   
 }
