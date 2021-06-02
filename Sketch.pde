@@ -2,7 +2,8 @@ int n = 100;
 Submarine sub;
 Rules rules;
 Obstacles [] obst = new Obstacles[n];
-boolean finished;
+boolean init = true;
+boolean isOver = false;
 
 void setup(){
   size(512, 512);
@@ -16,6 +17,8 @@ void setup(){
 void draw() {
   background(0);
   
+  mouseIsPressed();
+  
   sub.move();
   sub.render();
  
@@ -23,6 +26,14 @@ void draw() {
     obst[i].update();
     //obst[i].checkPosition(sub);
     obst[i].render();
+    if(sub.hits(obst[i])){
+      println("HITS...");
+    }
   }
-  
+}
+
+void mouseIsPressed(){
+    if (mousePressed){
+      sub.Up();
+    }
 }
