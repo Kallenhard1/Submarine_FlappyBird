@@ -1,46 +1,33 @@
 class Obstacles {
-  float bx, by;
+  float x, y;
   float spacing;
   float top;
   float bottom;
   float vel;
-  boolean finished;
+  boolean init = true;
+  boolean end = false;
   
   Obstacles(int i) {
-    finished = false;
-    spacing = -60;
-    top = random(height/2);
+    end = false;
+    spacing = 60;
+    top = random(height/6, 3/4*height);
     bottom = top + spacing;
-    bx = width * i;
-    by = height - bottom;
+    x = width*i;
     vel = -3;
   }
-  
-  void collision(Submarine sub) {
-    //I don't know, how to create a local variable for the Submarine class. (?)
-    float yHalf = height/2;
-    float xHalf = width/2;
-    Submarine halfHeightSub = sub.yHalf;
-    //if() {}
-  }
-  
+    
   void update(){
-    bx += vel;
+    x += vel;
   }
   
   void render() {
+    //pushMatrix();
     fill(210);
-    rect(bx, 0, spacing, top);
-    rect(bx, by, spacing, bottom);
+    rect(x, 0, spacing, top);
+    rect(x, height - bottom, spacing, bottom);
+    //popMatrix();
   }
-  
-  void checkPosition(Submarine s) {
-    if ( s.finished == true ) {
-      finished = true;
-      reset();
-    }
-  } 
-  
+   
   //Its not working yet...
   void reset() {
     finished = false;
@@ -48,9 +35,9 @@ class Obstacles {
     bottom = random(height/2);
     spacing = -60;
     for (int i = 0; i < 100; i++) {
-      bx = width + (width * i);
+      x = width* i;
     }
-    by = height - bottom;
+    y = height - bottom;
     vel = -3;
   }
   
