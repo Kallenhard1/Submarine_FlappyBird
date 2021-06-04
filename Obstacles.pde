@@ -1,19 +1,22 @@
 class Obstacles {
   float x, y;
-  float spacing;
+  float space;
   float top;
   float bottom;
   float vel;
-  boolean init = true;
   boolean end = false;
   
-  Obstacles(int i) {
+  // Este constructor precisa de parametros para poder funcionar um for do void draw() principal. Parametros to tipo: float tempX, float tempY, float tempW...
+  Obstacles(float tempX, float tempSpace, float tempTop, float tempBottom, float tempVel) {
     end = false;
-    spacing = 60;
-    top = random(height/6, 3/4*height);
-    bottom = top + spacing;
-    x = width*i;
-    vel = -3;
+    space = tempSpace;
+    //random(height/6, 3/4*height)
+    top = tempTop;
+    //top + spacing
+    tempBottom = top - space;
+    bottom = tempBottom;
+    x = tempX;
+    vel = tempVel;
   }
     
   void update(){
@@ -23,22 +26,14 @@ class Obstacles {
   void render() {
     //pushMatrix();
     fill(210);
-    rect(x, 0, spacing, top);
-    rect(x, height - bottom, spacing, bottom);
+    rect(x, 0, space, top);
+    rect(x, height - bottom, space, bottom);
     //popMatrix();
   }
    
   //Its not working yet...
   void reset() {
-    finished = false;
-    top = random(height/2);
-    bottom = random(height/2);
-    spacing = -60;
-    for (int i = 0; i < 100; i++) {
-      x = width* i;
-    }
-    y = height - bottom;
-    vel = -3;
+    
   }
   
 }
