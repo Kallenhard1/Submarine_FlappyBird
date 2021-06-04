@@ -4,8 +4,7 @@ class Submarine {
   float vel;
   float g;
   float force;
-  boolean init;
-  boolean end;
+  boolean hit;
 
   Submarine() {
     x = width/2;
@@ -16,6 +15,7 @@ class Submarine {
     
     g = 0.5;
     force = -6;
+    hit = false;
   }
   
   // Up hir, means the y direction of the Processing coordinate Y.
@@ -28,12 +28,21 @@ class Submarine {
     y += vel;
   }
   
+  
   void hits(Obstacles [] obst) {
     for (int i = 0; i < 100; i++){
-      if( (x > obst[i].x && x < obst[i].x + obst[i].spacing) && (y < obst[i].top || y > height - obst[i].bottom)) {
-        end = false;
+      if( (x > obst[i].x && x < obst[i].x + obst[i].space) && (y < obst[i].top || y > height - obst[i].bottom)) {
+        hit = true;
       }
     }
+  }
+  
+    boolean finished(){
+      if(hit == true){
+        return true;
+      } else {
+        return false;
+      }
   }
   
   void render() {
