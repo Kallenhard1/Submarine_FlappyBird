@@ -1,18 +1,22 @@
 int n = 100;
 Submarine sub;
-Rules rules;
-Obstacles [] obst = new Obstacles[n];
+Obstacles [] obs;
+ArrayList<Obstacles> obst;
 boolean init = true;
 boolean isOver = false;
 
 void setup(){
   size(512, 512);
-  
-  sub = new Submarine();
-  for(int i = 0; i < obst.length; i++) {
-    obst[i] = new Obstacles(i);
+  obs = new Obstacles[n];
+  obst = new ArrayList<Obstacles>();
+  for(int i = 0; i < obs.length; i++) {
+    obs[i] = new Obstacles(width, 60, random(height/6, 3/4*height), random(height/2), -3.0);
   }
-  rules = new Rules();
+  sub = new Submarine();
+
+  //obst.add(new Obstacles(width, 60, random(height/6, 3/4*height), random(height/2), -3.0));
+  
+
 }
 void draw() {
   background(0);
@@ -22,11 +26,11 @@ void draw() {
   sub.move();
   sub.render();
  
-  for(int i = obst.length - 1; i >= 0; i--) {
-    obst[i].update();
+  for(int i = 0; i < obs.length; i++) {
+    obs[i].update();
     //obst[i].checkPosition(sub);
-    obst[i].render();
-    if(sub.hits(obst[i])){
+    obs[i].render();
+    if(sub.finished()){
       println("HITS...");
     }
   }
