@@ -1,54 +1,64 @@
 class Submarine {
-  float x, y;
-  float r;
+  float x;
+  float y;
+  float size = 330;
   float vel;
   float g;
   float force;
-  boolean hit;
+  PImage submarine;
 
   Submarine() {
     x = width/2;
     y = height/2;
-    r = 10;
-  
+    submarine = loadImage("Submarine.png");
+    
     vel = 0;
     
     g = 0.5;
-    force = -6;
-    hit = false;
+    force = -6.0;
+   
   }
   
-  // Up hir, means the y direction of the Processing coordinate Y.
-  void Up() {
+  // Está funcionando, mas está dando tilts no render. Talvez esteja demorando para receber o -force
+    void Up() {
     vel = force;
+   
   }
-  // Embora o código esteja funcionando, seu efeito ainda está muito "seco", como se ganhasse velocidade instantanea ao pressionar o mouse.
-  void move() {
+ 
+  void render() {
+    
+    pushStyle();
+    
+    imageMode(CENTER);
+    image(submarine, x, y, size, size);
+    
+    popStyle();
+    
     vel += g;
     y += vel;
+    
   }
   
   
-  void hits(Obstacles [] obst) {
-    for (int i = 0; i < 100; i++){
-      if( (x > obst[i].x && x < obst[i].x + obst[i].space) && (y < obst[i].top || y > height - obst[i].bottom)) {
-        hit = true;
-      }
+  void reset() {
+    y = 0;
+    vel = 0;
+  }
+  
+
+  
+  void boarders() {
+    if(y >= height-1) {
+      vel -= force;
+      y = height-40;
+      //vel = 0;
+    }
+    if (y <= 0) {
+      vel = 0;
+      y = 0;
     }
   }
   
-    boolean finished(){
-      if(hit == true){
-        return true;
-      } else {
-        return false;
-      }
-  }
-  
-  void render() {
-    fill(50, 50, 200);
-    noStroke();
-    ellipse(x, y, r*5, r*2);
-  }
+
   
 }
